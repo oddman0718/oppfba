@@ -15,7 +15,8 @@
 namespace App\Controller;
 
 use Cake\Controller\Controller;
-use Cake\Event\Event;
+use Exception;
+
 
 /**
  * Application Controller
@@ -36,6 +37,7 @@ class AppController extends Controller
      * e.g. `$this->loadComponent('Security');`
      *
      * @return void
+     * @throws Exception
      */
     public function initialize()
     {
@@ -51,5 +53,28 @@ class AppController extends Controller
          * see https://book.cakephp.org/3.0/en/controllers/components/security.html
          */
         //$this->loadComponent('Security');
+
+        $this->loadComponent('Auth', [
+            'authenticate' => [
+                'Form' => [
+                    'fields' => [
+                        'username' => 'username',
+                        'password' => 'password_hash'
+                    ]
+                ]
+            ],
+            'loginAction' => [
+                'controller' => 'Users',
+                'action' => 'login'
+            ],
+            // コントローラーで isAuthorized を使用します
+            'authorize' => ['Controller'],
+            // 未認証の場合、直前のページに戻します
+            'unauthorizedRedirect' => $this->referer()
+        ]);
+
+        // display アクションを許可して、PagesController が引き続き
+        // 動作するようにします。また、読み取り専用のアクションを有効にします。
+        $this->Auth->allow(['display', 'view', 'index']);
     }
 }
