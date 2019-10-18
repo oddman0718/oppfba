@@ -77,4 +77,9 @@ class AppController extends Controller
         // 動作するようにします。また、読み取り専用のアクションを有効にします。
         $this->Auth->allow(['display', 'view', 'index']);
     }
+
+    public function isAuthorized($user)
+    {
+        return true;
+    }
 }
