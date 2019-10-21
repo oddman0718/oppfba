@@ -1,21 +1,21 @@
 <?php
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\RolesTable;
+use App\Model\Table\ShippedStockTable;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\RolesTable Test Case
+ * App\Model\Table\ShippedStockTable Test Case
  */
-class RolesTableTest extends TestCase
+class ShippedStockTableTest extends TestCase
 {
     /**
      * Test subject
      *
-     * @var \App\Model\Table\RolesTable
+     * @var \App\Model\Table\ShippedStockTable
      */
-    public $Roles;
+    public $ShippedStock;
 
     /**
      * Fixtures
@@ -23,8 +23,9 @@ class RolesTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.Roles',
-        'app.Users'
+        'app.ShippedStock',
+        'app.AmazonSkus',
+        'app.ShipmentPlans'
     ];
 
     /**
@@ -35,8 +36,8 @@ class RolesTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::getTableLocator()->exists('Roles') ? [] : ['className' => RolesTable::class];
-        $this->Roles = TableRegistry::getTableLocator()->get('Roles', $config);
+        $config = TableRegistry::getTableLocator()->exists('ShippedStock') ? [] : ['className' => ShippedStockTable::class];
+        $this->ShippedStock = TableRegistry::getTableLocator()->get('ShippedStock', $config);
     }
 
     /**
@@ -46,7 +47,7 @@ class RolesTableTest extends TestCase
      */
     public function tearDown()
     {
-        unset($this->Roles);
+        unset($this->ShippedStock);
 
         parent::tearDown();
     }

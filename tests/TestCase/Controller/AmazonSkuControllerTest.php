@@ -1,16 +1,16 @@
 <?php
 namespace App\Test\TestCase\Controller;
 
-use App\Controller\UsersController;
+use App\Controller\AmazonSkuController;
 use Cake\TestSuite\IntegrationTestTrait;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Controller\UsersController Test Case
+ * App\Controller\AmazonSkuController Test Case
  *
- * @uses \App\Controller\UsersController
+ * @uses \App\Controller\AmazonSkuController
  */
-class UsersControllerTest extends TestCase
+class AmazonSkuControllerTest extends TestCase
 {
     use IntegrationTestTrait;
 
@@ -20,8 +20,8 @@ class UsersControllerTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.Users',
-        'app.Roles'
+        'app.AmazonSku',
+        'app.ShippedStock'
     ];
 
     /**
