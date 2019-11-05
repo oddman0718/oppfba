@@ -7,18 +7,37 @@
 use App\Model\Entity\ProcessingPlan;
 use App\View\AppView;
 use Cake\Collection\CollectionInterface;
+
+$conditions = [];
+if ($this->request->getQuery()) {
+    foreach ($this->request->getQuery() as $key => $value) {
+        switch ($key) {
+            case 'page':
+            case 'direction':
+            case 'sort':
+                break;
+            default:
+                if (!empty($value)) {
+                    $conditions[$key]= trim($value);
+                }
+                break;
+        }
+    }
+}
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Processing Plan'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Processed Stock'), ['controller' => 'ProcessedStock', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Processed Stock'), ['controller' => 'ProcessedStock', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
+
 <div class="processingPlans index large-9 medium-8 columns content">
     <h3><?= __('加工プラン') ?></h3>
+    <?= $this->Form->create(null, ['type' => 'get']) ?>
+    <?php
+        echo $this->Form->control('creater_id', ['label' => '作業者']);
+        echo $this->Form->control('created', ['label' => '作成日時']);
+        echo $this->Form->control('status', ['label' => 'ステータス']);
+    ?>
+    <?= $this->Form->button(__('検索')) ?>
+    <?= $this->Form->end() ?>
     <table>
+        <?= $this->Html->link(__('加工プラン作成'), ['action' => 'add']) ?>
         <thead>
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('id', 'ID') ?></th>
@@ -43,8 +62,8 @@ use Cake\Collection\CollectionInterface;
                 <td><?= h($processingPlan->modified) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $processingPlan->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $processingPlan->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $processingPlan->id], ['confirm' => __('Are you sure you want to delete # {0}?', $processingPlan->id)]) ?>
+                    <?= $this->Html->link(__('編集'), ['action' => 'edit', $processingPlan->id]) ?>
+                    <?= $this->Form->postLink(__('削除'), ['action' => 'delete', $processingPlan->id], ['confirm' => __('Are you sure you want to delete # {0}?', $processingPlan->id)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>
